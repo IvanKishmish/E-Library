@@ -4,7 +4,6 @@ namespace E_Library.Database.Entities;
 
 public class Category : Entity<Guid>
 {
-    [MaxLength(20)]
     public string Name { get; private set; } = string.Empty;
     
     private Category(){} //для EF core
