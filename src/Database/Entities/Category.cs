@@ -18,4 +18,12 @@ public class Category : Entity<Guid>
     {
         return new Category(Guid.CreateVersion7(), name);
     }
+    
+    public void UpdateName(string newName)
+    {
+        if (string.IsNullOrWhiteSpace(newName))
+            throw new ArgumentException("Назва не може бути порожньою");
+
+        Name = newName;
+    }
 }
