@@ -24,7 +24,7 @@ public class Author : Entity<Guid>
     }
 
     //null оскільки при створенні за замовченням у автора книг немає
-    public static Author Create(Guid id, string firstName, string lastName, string biography, List<Book> books = null!){
+    public static Author Create(string firstName, string lastName, string biography, List<Book> books = null!){
         return new Author(Guid.CreateVersion7(), firstName, lastName, biography, books);
     }
 }

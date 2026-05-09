@@ -2,7 +2,7 @@ using E_Library.Database.Entities;
 
 namespace E_Library.Dtos.Books;
 
-public record UpdateBookRequestDto(
+public sealed record UpdateBookRequestDto(
     string Title,
     string Description,
     decimal Price,

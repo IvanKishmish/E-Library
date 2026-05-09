@@ -2,7 +2,7 @@ using E_Library.Database.Entities;
 
 namespace E_Library.Dtos.Authors;
 
-public record AuthorResponseDto(
+public sealed record AuthorResponseDto(
     Guid Id,
     string FullName,
     string Biography,

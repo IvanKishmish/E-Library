@@ -26,7 +26,7 @@ public class Book : Entity<Guid>
         CategoryId = categoryId;
     }
 
-    public static Book Create(Guid id, string title, string description, decimal price, Guid authorId, Guid categoryId)
+    public static Book Create(string title, string description, decimal price, Guid authorId, Guid categoryId)
     {
         return new Book(Guid.CreateVersion7(), title, description, price, authorId, categoryId);
     }
