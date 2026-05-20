@@ -348,12 +348,12 @@ ASPNETCORE_ENVIRONMENT=Development
 - [x] Cache Invalidation on mutations
 - [x] IQueryable filtering (DB-side)
 - [x] `.env` configuration
+- [x] 📊 **Logging** — structured logging via Serilog
 - [ ] 🐳 **Docker & Docker Compose** — containerization of API + PostgreSQL
 - [ ] 🔴 **Redis Integration** — switching from Memory to Redis (architecture ready)
 - [ ] 🔐 **JWT Authentication** — registration, login, secured endpoints
 - [ ] 👤 **Role-based Authorization** — Admin / Reader roles
 - [ ] 📄 **Pagination** — cursor-based pagination for lists
-- [ ] 📊 **Logging** — structured logging via Serilog
 - [ ] 🧪 **Unit & Integration Tests** — service layer coverage
 
 ---
