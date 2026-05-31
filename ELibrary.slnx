@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="ELibrary.Domain\ELibrary.Domain.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Infrastructure/" />
+  <Folder Name="/Presentation/" />
+  <Folder Name="/Tests/" />
+</Solution>
