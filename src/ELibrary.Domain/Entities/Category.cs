@@ -9,8 +9,8 @@ public class Category : Entity<EntityId>
     private Category(){} //для EF core
 
     private Category(EntityId id, string name)
+    :base(id)
     {
-        Id = id;
         Name = name;
     }
 
