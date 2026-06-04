@@ -7,7 +7,7 @@ namespace ELibrary.Persistence.Repositories;
 
 public class BookRepository(AppDbContext context) : IBookRepository
 {
-    public async Task<Book?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Book?> GetByIdAsync(EntityId id, CancellationToken cancellationToken = default)
     {
         return await context.Books
             .Include(b => b.Author)

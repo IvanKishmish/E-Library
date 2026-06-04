@@ -7,7 +7,7 @@ namespace ELibrary.Persistence.Repositories;
 
 public sealed class AuthorRepository(AppDbContext context) : IAuthorRepository
 {
-    public async Task<Author?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Author?> GetByIdAsync(EntityId id, CancellationToken cancellationToken = default)
     {
         return await context.Authors.FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
     }
