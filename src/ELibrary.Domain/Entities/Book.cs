@@ -12,6 +12,7 @@ public class Book : Entity<EntityId>
     public EntityId AuthorId { get; private set; }
 
     
+    //navigation properties just so we can later make .Include
     public Category Category { get; private set; } = null!;
     public Author Author { get; private set; } = null!;
 
@@ -38,7 +39,7 @@ public class Book : Entity<EntityId>
         return new Book(EntityId.CreateVersion7(), title, description, price, categoryId, authorId);
     }
     
-    public ErrorOr<Updated> UpdateInfo(string title, string description, decimal price, EntityId categoryId)
+    public ErrorOr<Updated> UpdateInfo(string title, string description, decimal price, EntityId categoryId, EntityId authorId)
     {
         if (string.IsNullOrWhiteSpace(title)) return Error.Validation("Book.TitleRequired");
         if (price < 0) return Error.Validation("Book.InvalidPrice");
@@ -47,6 +48,7 @@ public class Book : Entity<EntityId>
         Description = description;
         Price = price;
         CategoryId = categoryId;
+        AuthorId = authorId;
 
         return Result.Updated;
     }
