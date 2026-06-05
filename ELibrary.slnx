@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="src/ELibrary.Application/ELibrary.Application.csproj" Type="Classic C#" />
+    <Project Path="src/ELibrary.Domain/ELibrary.Domain.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="src/ELibrary.Persistence/ELibrary.Persistence.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Presentation/">
+    <Project Path="src\ELibrary.WebApi\ELibrary.WebApi.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Tests/" />
+</Solution>
