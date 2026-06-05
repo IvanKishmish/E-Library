@@ -1,41 +1,62 @@
-var builder = WebApplication.CreateBuilder(args);
+using DotNetEnv;
+using ELibrary.Application;
+using ELibrary.Persistence;
+using ELibrary.WebApi;
+using Serilog;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+Env.Load();
 
-var app = builder.Build();
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
+    .WriteTo.File("logs/ELibrary-log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.MapOpenApi();
-}
+    Log.Information("=== Starting ELibrary Web API Application ===");
 
-app.UseHttpsRedirection();
+    var builder = WebApplication.CreateBuilder(args);
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    // Передаємо керування логуванням до Serilog
+    builder.Host.UseSerilog();
 
-app.MapGet("/weatherforecast", () =>
+    // Реєстрація стандартних сервісів Web API
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(); 
+
+    // Реєструємо розподілений кеш у пам'яті (IDistributedCache)
+    builder.Services.AddDistributedMemoryCache();
+
+    // Підключаємо шари архітектури через твої методи розширення
+    builder.Services
+        .AddApplication()
+        .AddPersistence(builder.Configuration); 
+
+    var app = builder.Build();
+
+    // Налаштування конвеєра HTTP-запитів (Middleware)
+    if (app.Environment.IsDevelopment())
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.Run();
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+    Log.Information("Applying pending database migrations...");
+    await app.ApplyMigrationsAsync();
+
+    app.Run();
+}
+catch (Exception ex)
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    Log.Fatal(ex, "The application failed to start correctly!");
+}
+finally
+{
+    Log.CloseAndFlush(); // Гарантовано записуємо залишки логів у файл перед закриттям
 }

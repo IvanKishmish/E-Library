@@ -16,6 +16,13 @@ public static class DependencyInjection
         {
             cfg.RegisterServicesFromAssembly(assembly);
  
+            // Додаємо наш глобальний логер на конвеєр MediatR
+            cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            
+            cfg.AddOpenBehavior(typeof(CacheInvalidationBehavior<,>));
+            
+            cfg.AddOpenBehavior(typeof(CachingBehavior<,>));
+            
             // Attach the validation pipeline so every command/query is validated
             // before reaching its handler.
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

@@ -7,13 +7,22 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DotNetEnv" Version="3.2.0" />
         <PackageReference Include="ErrorOr" Version="2.1.1" />
         <PackageReference Include="MediatR" Version="13.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.16"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.16">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Serilog" Version="4.3.1" />
+        <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ELibrary.Application\ELibrary.Application.csproj" />
+      <ProjectReference Include="..\ELibrary.Persistence\ELibrary.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

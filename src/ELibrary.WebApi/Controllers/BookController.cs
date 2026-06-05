@@ -35,6 +35,12 @@ public sealed class BookController(ISender mediator) : ApiController(mediator)
         );
     }
 
+    
+    /// <remarks>
+    /// Навіщо тут два рази id? 
+    /// Перший `new { id = bookId }` підставляється у шаблон маршруту "GetById" для генерації HTTP-заголовка Location.
+    /// Другий `new { id = bookId }` формує JSON-тіло відповіді { "id": "..." } для клієнта.
+    /// </remarks>
     [HttpPost]
     public async Task<IActionResult> Create(CreateBookCommand command, CancellationToken cancellationToken)
     {
@@ -42,8 +48,8 @@ public sealed class BookController(ISender mediator) : ApiController(mediator)
         
         return result.Match(
             bookId => CreatedAtAction(nameof(GetById),
-                new { id = bookId },
-                new { id = bookId }),
+                new { id = bookId }, // 1. Будує правильний URL для заголовка Location (наприклад, /api/Books/018f3b...)
+                new { id = bookId }), // 2. Повертає клієнту JSON-об'єкт із полем id у тілі відповіді
             errors => Problem(errors)
         );
     }

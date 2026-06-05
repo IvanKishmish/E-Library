@@ -6,6 +6,8 @@
   <Folder Name="/Infrastructure/">
     <Project Path="src/ELibrary.Persistence/ELibrary.Persistence.csproj" Type="Classic C#" />
   </Folder>
-  <Folder Name="/Presentation/" />
+  <Folder Name="/Presentation/">
+    <Project Path="src\ELibrary.WebApi\ELibrary.WebApi.csproj" Type="Classic C#" />
+  </Folder>
   <Folder Name="/Tests/" />
 </Solution>

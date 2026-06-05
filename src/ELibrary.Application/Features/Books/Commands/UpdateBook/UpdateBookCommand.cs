@@ -1,3 +1,4 @@
+using ELibrary.Application.Common.Interfaces;
 using ErrorOr;
 using MediatR;
 
@@ -9,4 +10,7 @@ public sealed record UpdateBookCommand(
     string Description,
     decimal Price,
     EntityId CategoryId,
-    EntityId AuthorId) : IRequest<ErrorOr<Updated>>;
+    EntityId AuthorId) : IRequest<ErrorOr<Updated>>, IInvalidateCacheCommand
+{
+    public string[] CacheKeysToInvalidate => [ "all-books", $"book-{Id}" ];
+}
